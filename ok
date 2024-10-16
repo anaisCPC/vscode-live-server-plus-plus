@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title> 
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+  </style>
+</head>
+<body>
+<p class="p1"><br></p>
+<p class="p2"># Borne Interactive Script: Réservation d'Activités</p>
+<p class="p1"><br></p>
+<p class="p2">## 1. Écran de veille (avant le premier clic)</p>
+<p class="p2">Avant toute interaction, des images défilent, et un clic sur l'écran lance l'interface de sélection des activités.</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">// Écran de veille avec images défilantes</p>
+<p class="p2">let images = ['image1.jpg', 'image2.jpg', 'image3.jpg'];<span class="Apple-converted-space">  </span>// Liste des images</p>
+<p class="p2">let index = 0;</p>
+<p class="p1"><br></p>
+<p class="p2">function afficherImageSuivante() {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>document.getElementById('ecran').src = images[index];</p>
+<p class="p2"><span class="Apple-converted-space">    </span>index = (index + 1) % images.length;<span class="Apple-converted-space">  </span>// Boucle sur les images</p>
+<p class="p2">}</p>
+<p class="p1"><br></p>
+<p class="p2">setInterval(afficherImageSuivante, 3000);<span class="Apple-converted-space">  </span>// Change d'image toutes les 3 secondes</p>
+<p class="p1"><br></p>
+<p class="p2">// Au clic, lancer l'interface principale</p>
+<p class="p2">document.getElementById('ecran').onclick = function() {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>afficherFamillesActivites();</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## 2. Affichage des familles d'activités</p>
+<p class="p2">Une fois que l'utilisateur clique sur l'écran, plusieurs catégories d'activités s'affichent.</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">function afficherFamillesActivites() {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let familles = ['Activités sur l'eau', 'Activités sur terre', 'Dans les airs', 'Restaurants', 'Bien-être'];</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('activites-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = '';<span class="Apple-converted-space">  </span>// Vider le contenu précédent</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>familles.forEach(famille =&gt; {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>let button = document.createElement('button');</p>
+<p class="p2"><span class="Apple-converted-space">        </span>button.textContent = famille;</p>
+<p class="p2"><span class="Apple-converted-space">        </span>button.onclick = function() {</p>
+<p class="p2"><span class="Apple-converted-space">            </span>afficherPrestataires(famille);</p>
+<p class="p2"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><span class="Apple-converted-space">        </span>container.appendChild(button);</p>
+<p class="p2"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## 3. Affichage des prestataires</p>
+<p class="p2">Selon la famille d'activités choisie, la liste des prestataires associés s'affiche.</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">function afficherPrestataires(familleChoisie) {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let prestataires = {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>'Activités sur l'eau': ['Wake-surf', 'Paddle', 'Jet-ski'],</p>
+<p class="p2"><span class="Apple-converted-space">        </span>'Activités sur terre': ['Randonnée', 'VTT'],</p>
+<p class="p2"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('prestataires-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = '';<span class="Apple-converted-space">  </span>// Vider le contenu précédent</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>prestataires[familleChoisie].forEach(prestataire =&gt; {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>let button = document.createElement('button');</p>
+<p class="p2"><span class="Apple-converted-space">        </span>button.textContent = prestataire;</p>
+<p class="p2"><span class="Apple-converted-space">        </span>button.onclick = function() {</p>
+<p class="p2"><span class="Apple-converted-space">            </span>afficherDetailsPrestataire(prestataire);</p>
+<p class="p2"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><span class="Apple-converted-space">        </span>container.appendChild(button);</p>
+<p class="p2"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## 4. Affichage des détails du prestataire</p>
+<p class="p2">Une fois un prestataire sélectionné, des détails spécifiques s'affichent (âge minimum, difficulté, etc.).</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">function afficherDetailsPrestataire(prestataire) {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let details = {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>'Wake-surf': {ageMin: 12, difficulte: 'Intermédiaire'},</p>
+<p class="p2"><span class="Apple-converted-space">        </span>'Paddle': {ageMin: 10, difficulte: 'Facile'},</p>
+<p class="p2"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('details-prestataire-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = '';<span class="Apple-converted-space">  </span>// Vider le contenu précédent</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>let info = details[prestataire];</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = `&lt;p&gt;Âge minimum : ${info.ageMin}&lt;/p&gt;&lt;p&gt;Difficulté : ${info.difficulte}&lt;/p&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span>let button = document.createElement('button');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>button.textContent = 'Voir le planning';</p>
+<p class="p2"><span class="Apple-converted-space">    </span>button.onclick = function() {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>afficherPlanning(prestataire);</p>
+<p class="p2"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.appendChild(button);</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## 5. Affichage du planning et sélection du créneau</p>
+<p class="p2">Ensuite, un planning des créneaux disponibles s'affiche pour permettre à l'utilisateur de choisir une date et un créneau horaire.</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">function afficherPlanning(prestataire) {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let slots = ['2024-10-15 10:00', '2024-10-15 14:00', '2024-10-16 09:00'];</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('planning-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = '';<span class="Apple-converted-space">  </span>// Vider le contenu précédent</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>slots.forEach(slot =&gt; {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>let button = document.createElement('button');</p>
+<p class="p2"><span class="Apple-converted-space">        </span>button.textContent = slot;</p>
+<p class="p2"><span class="Apple-converted-space">        </span>button.onclick = function() {</p>
+<p class="p2"><span class="Apple-converted-space">            </span>choisirParticipants(slot, prestataire);</p>
+<p class="p2"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><span class="Apple-converted-space">        </span>container.appendChild(button);</p>
+<p class="p2"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## 6. Sélection du nombre de participants</p>
+<p class="p2">Après avoir sélectionné un créneau, le client choisit le nombre de participants.</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">function choisirParticipants(slot, prestataire) {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('participants-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = '';<span class="Apple-converted-space">  </span>// Vider le contenu précédent</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>let label = document.createElement('label');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>label.textContent = 'Nombre de participants :';</p>
+<p class="p1"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span>let input = document.createElement('input');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>input.type = 'number';</p>
+<p class="p2"><span class="Apple-converted-space">    </span>input.min = 1;</p>
+<p class="p2"><span class="Apple-converted-space">    </span>input.max = 10;</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>let button = document.createElement('button');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>button.textContent = 'Confirmer';</p>
+<p class="p2"><span class="Apple-converted-space">    </span>button.onclick = function() {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>afficherConfirmation(slot, prestataire, input.value);</p>
+<p class="p2"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.appendChild(label);</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.appendChild(input);</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.appendChild(button);</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## 7. Affichage de la confirmation de réservation</p>
+<p class="p2">Une page de confirmation s'affiche avec un résumé de la réservation avant le paiement.</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">function afficherConfirmation(slot, prestataire, participants) {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('confirmation-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = `&lt;p&gt;Activité : ${prestataire}&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                           </span>&lt;p&gt;Date et heure : ${slot}&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                           </span>&lt;p&gt;Nombre de participants : ${participants}&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                           </span>&lt;button onclick="processusPaiement()"&gt;Payer&lt;/button&gt;`;</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## 8. Paiement et impression du ticket</p>
+<p class="p2">Le processus de paiement se déclenche, puis une fois validé, un ticket avec un QR code est imprimé.</p>
+<p class="p1"><br></p>
+<p class="p2">### Pseudo-code :</p>
+<p class="p2">```javascript</p>
+<p class="p2">function processusPaiement() {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>// Simuler un paiement réussi</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('paiement-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = '&lt;p&gt;Paiement en cours...&lt;/p&gt;';</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>setTimeout(function() {</p>
+<p class="p2"><span class="Apple-converted-space">        </span>// Simuler validation du paiement</p>
+<p class="p2"><span class="Apple-converted-space">        </span>container.innerHTML = '&lt;p&gt;Paiement validé ! Impression du ticket...&lt;/p&gt;';</p>
+<p class="p2"><span class="Apple-converted-space">        </span>imprimerTicket();</p>
+<p class="p2"><span class="Apple-converted-space">    </span>}, 2000);<span class="Apple-converted-space">  </span>// Simuler un délai de paiement de 2 secondes</p>
+<p class="p2">}</p>
+<p class="p1"><br></p>
+<p class="p2">function imprimerTicket() {</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let container = document.getElementById('ticket-container');</p>
+<p class="p2"><span class="Apple-converted-space">    </span>let qrCode = 'QR_CODE_REPRESENTATION';<span class="Apple-converted-space">  </span>// Placeholder pour un vrai QR code</p>
+<p class="p1"><br></p>
+<p class="p2"><span class="Apple-converted-space">    </span>container.innerHTML = `&lt;p&gt;Votre ticket :&lt;/p&gt;&lt;p&gt;${qrCode}&lt;/p&gt;`;</p>
+<p class="p2"><span class="Apple-converted-space">    </span>alert('Votre ticket a été imprimé avec succès.');</p>
+<p class="p2">}</p>
+<p class="p2">```</p>
+<p class="p1"><br></p>
+<p class="p2">## Démo Step-by-Step:</p>
+<p class="p2">1. **Écran de veille**: Le client voit des images défiler. Au premier clic, l'écran d'accueil s'affiche avec des catégories d'activités.</p>
+<p class="p2">2. **Choix d'une catégorie**: Le client choisit une catégorie d'activités.</p>
+<p class="p2">3. **Choix du prestataire**: Après avoir sélectionné une catégorie, la liste des prestataires s'affiche.</p>
+<p class="p2">4. **Détails de l'activité**: Les informations sur le prestataire (ex: âge minimum, difficulté) sont affichées.</p>
+<p class="p2">5. **Planning**: Le client sélectionne une date et un créneau horaire pour l'activité.</p>
+<p class="p2">6. **Participants**: Le client choisit le nombre de participants.</p>
+<p class="p2">7. **Confirmation**: Un résumé de la réservation s'affiche avant le paiement.</p>
+<p class="p2">8. **Paiement et ticket**: Le client procède au paiement, puis un ticket avec un QR code est imprimé.</p>
+<p class="p1"><br></p>
+</body>
+</html>
